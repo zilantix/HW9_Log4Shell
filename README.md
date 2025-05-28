@@ -4,9 +4,13 @@ and walks through a full exploit lifecycle with **MITRE ATT&CK/REACT** response 
 
 ---
 Project Structure:
+
 HW9_Log4Shell/
+
 ├── log4shell-homework/        # Vulnerable Spring Boot app with Log4j 2.14.1
+
 ├── marshalsec/                # LDAPRefServer for JNDI exploit delivery
+
 └── Exploit.java               # Malicious class payload (compiled and hosted)
 
 ---
